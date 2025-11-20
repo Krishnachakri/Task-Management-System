@@ -1,0 +1,14 @@
+<svg width="140" height="40" viewBox="0 0 140 40" xmlns="http://www.w3.org/2000/svg">
+  <rect width="140" height="40" rx="6" fill="#5c7895"/>
+  <g transform="translate(12 8)" fill="none" stroke="#fff" stroke-width="2">
+    <circle cx="30" cy="12" r="6"/>
+    <path d="M6 12h18M36 12h18"/>
+    <path d="M30 18l6 10M30 18l-6 10"/>
+    <path d="M12 3l6 9M48 3l-6 9"/>
+  </g>
+  <text x="70" y="16" fill="#fff" font-size="12" font-family="Arial" font-weight="bold">AVPL</text>
+  <text x="70" y="30" fill="#fff" font-size="10" font-family="Arial" letter-spacing="2">INTERNATIONAL</text>
+</svg>
+
+
+
