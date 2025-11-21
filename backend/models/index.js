@@ -19,7 +19,7 @@ const initializeDatabase = () => {
       });
 
       db.run(`CREATE TABLE IF NOT EXISTS tasks (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT NOT NULL,
         description TEXT,
         status TEXT DEFAULT 'pending' NOT NULL,
@@ -40,4 +40,7 @@ const initializeDatabase = () => {
 };
 
 module.exports = { initializeDatabase };
+
+
+
 

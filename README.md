@@ -14,7 +14,6 @@ A full-stack Task Management System built with the MERN stack fundamentals (Node
 - **Search & Filter**: Search tasks by title/description and filter by status
 - **Responsive Design**: Modern UI built with Tailwind CSS
 - **Input Validation**: Backend validation using Joi
-- **Admin Panel**: Manage user roles directly from the UI
 
 ## 📋 Prerequisites
 
@@ -47,12 +46,7 @@ A full-stack Task Management System built with the MERN stack fundamentals (Node
    PORT=5000
    ```
 
-4. Default admin credentials (for testing/demo):
-   - **Username:** `admin`
-   - **Password:** `admin@123`
-   - Promote/demote users later via the Admin Panel or `node scripts/promote-admin.js <username>`.
-
-5. Start the backend server:
+4. Start the backend server:
    ```bash
    npm run dev
    ```
@@ -96,13 +90,6 @@ A full-stack Task Management System built with the MERN stack fundamentals (Node
 | POST | `/api/tasks` | Create a new task | Protected |
 | PUT | `/api/tasks/:id` | Update a task | Protected (own tasks or admin) |
 | DELETE | `/api/tasks/:id` | Delete a task | Protected (own tasks or admin) |
-
-### Admin Routes
-
-| Method | Endpoint | Description | Access |
-|--------|----------|-------------|--------|
-| GET | `/api/admin/users` | List every user with role info | Admin |
-| PUT | `/api/admin/users/:id/role` | Update a user’s role (`user` or `admin`) | Admin |
 
 ### Query Parameters for GET `/api/tasks`
 
@@ -155,18 +142,23 @@ The application uses SQLite with two main tables:
 - `createdBy`: Foreign key to users table
 - `createdAt`: Timestamp
 
-## 🔧 Promoting Users to Admin
+## 🔧 Making the First User an Admin
 
-- Use the helper script (no SQL needed):
-  ```bash
-  cd backend
-  node scripts/promote-admin.js <username>
-  ```
-- Or log in as an existing admin and open the **Admin Panel** (`/admin`) to change roles via the dropdown.
-- Reference admin credentials bundled with this repo:
-  - **Username:** `admin`
-  - **Password:** `admin@123`
+To test admin functionality, you can manually update the first registered user to admin role:
 
+1. Open the SQLite database file: `backend/database.sqlite`
+2. Run the following SQL command:
+   ```sql
+   UPDATE users SET role = 'admin' WHERE id = 1;
+   ```
+
+Alternatively, you can use a SQLite CLI:
+```bash
+cd backend
+sqlite3 database.sqlite
+UPDATE users SET role = 'admin' WHERE id = 1;
+.quit
+```
 
 ## 📁 Project Structure
 
@@ -177,8 +169,7 @@ task-manager-rbac/
 │   │   └── db.js              # Database connection
 │   ├── controllers/
 │   │   ├── authController.js  # Authentication logic
-│   │   ├── taskController.js  # Task CRUD operations
-│   │   └── adminController.js # Admin-only user management
+│   │   └── taskController.js  # Task CRUD operations
 │   ├── middleware/
 │   │   ├── auth.js            # JWT protection & admin check
 │   │   └── admin.js           # Admin middleware (re-export)
@@ -186,10 +177,7 @@ task-manager-rbac/
 │   │   └── index.js           # Database schema & initialization
 │   ├── routes/
 │   │   ├── auth.js            # Authentication routes
-│   │   ├── tasks.js           # Task routes
-│   │   └── admin.js           # Admin routes
-│   ├── scripts/
-│   │   └── promote-admin.js   # Helper to promote users
+│   │   └── tasks.js           # Task routes
 │   ├── .env                   # Environment variables
 │   ├── .env.example           # Environment variables template
 │   ├── server.js              # Main server file
@@ -204,14 +192,11 @@ task-manager-rbac/
 │   │   ├── pages/
 │   │   │   ├── Login.jsx
 │   │   │   ├── Register.jsx
-│   │   │   ├── Dashboard.jsx
-│   │   │   └── AdminPanel.jsx
+│   │   │   └── Dashboard.jsx
 │   │   ├── context/
 │   │   │   └── AuthContext.jsx
 │   │   ├── services/
 │   │   │   └── api.js         # Axios instance with interceptors
-│   │   ├── assets/
-│   │   │   └── avpl-logo.svg  # Branding asset
 │   │   ├── App.jsx
 │   │   └── main.jsx
 │   └── package.json
@@ -260,7 +245,7 @@ task-manager-rbac/
 - JWT tokens expire after 7 days
 - Passwords must be at least 6 characters long
 - Usernames must be at least 3 characters long
-- To test admin features quickly, log in with `admin` / `admin@123` or use the Admin Panel/helper script to promote any user
+- The first registered user should be manually set to admin for testing admin features
 
 ## 🔒 Security Features
 
@@ -282,6 +267,5 @@ Task Management System with RBAC
 ---
 
 **Happy Task Managing!** 🎉
-
 
 
