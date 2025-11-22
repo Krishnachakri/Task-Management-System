@@ -1,4 +1,5 @@
 {
+  "homepage": "https://krishnachakri.github.io/Task-Management-System/"
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
@@ -19,6 +20,8 @@
     "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.2",
     "sqlite3": "^5.1.7"
+    "predeploy": "npm run build",
+    "deploy":"gh-pages -d build"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
